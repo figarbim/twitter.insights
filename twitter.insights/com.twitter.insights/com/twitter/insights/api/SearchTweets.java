@@ -13,10 +13,8 @@ import twitter4j.TwitterException;
 
 public class SearchTweets {
 	
-	public static List<TwitterObject> search(Twitter twitter) {
+	public static List<TwitterObject> search(String hashtag, Twitter twitter) {
 		
-		String hashtag = "#api";
-		TwitterObject twitterObj = new TwitterObject();
 		List<TwitterObject> twitterObjList = new ArrayList<TwitterObject>();
 
 		try {
@@ -26,6 +24,7 @@ public class SearchTweets {
 		    
 		    int index = 0;
 	        for (Status tweet : tweets) {
+	        	TwitterObject twitterObj = new TwitterObject();
 	        	twitterObj.setHashtag(hashtag);
 	        	twitterObj.setUser("@" + tweet.getUser().getScreenName());
 	            twitterObj.setTweet(tweet.getText());
@@ -35,15 +34,17 @@ public class SearchTweets {
 	            twitterObj.setFollowersCount(tweet.getUser().getFollowersCount());
 	            twitterObjList.add(index, twitterObj);
 	            index++;
+	            
+//	            System.out.println("+ Hashtag: " + hashtag);
+//		        System.out.println("+ Usuário: " + twitterObj.getUser());
+//		        System.out.println("+ Tweet: " + twitterObj.getTweet());
+//		        System.out.println("+ Idioma: " + twitterObj.getLanguage());
+//		        System.out.println("+ País: " + twitterObj.getLocation());
+//		        System.out.println("+ Data de Postagem: " + twitterObj.getCreationDate());
+//		        System.out.println("+ Número de Seguidores: " + twitterObj.getFollowersCount());
+//		        System.out.println("\n");
+	            
 	        }
-	        
-//	        System.out.println("+ Hashtag: " + hashtag);
-//	        System.out.println("+ Usuário: " + twitterObj.getUser());
-//	        System.out.println("+ Tweet: " + twitterObj.getTweet());
-//	        System.out.println("+ Idioma: " + twitterObj.getLanguage());
-//	        System.out.println("+ País: " + twitterObj.getLocation());
-//	        System.out.println("+ Data de Postagem: " + twitterObj.getCreationDate());
-//	        System.out.println("+ Número de Seguidores: " + twitterObj.getFollowersCount());
 	        
 		} catch (TwitterException te) {
 			te.printStackTrace();
