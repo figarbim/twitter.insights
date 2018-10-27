@@ -1,10 +1,5 @@
 package com.twitter.insights.api;
 
-import java.util.List;
-
-import twitter4j.Query;
-import twitter4j.QueryResult;
-import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
@@ -17,7 +12,8 @@ public class TwitterAuthentication {
 	private static final String ACCESS_TOKEN = "1055199910277070850-JNYAP47jrT7tSl9GfF6eXpqrdUsLwQ";
 	private static final String ACCESS_TOKEN_SECRET = "8Hszz7YjKDciYUavdlILuozmdSykexpSK265a2ner1gbw";
 	
-	public static void authenticate() throws TwitterException {
+	public static Twitter authenticate() throws TwitterException {
+		System.err.println("=== [TWITTER] CONNECTING...");
 		ConfigurationBuilder cb = new ConfigurationBuilder();
 		cb.setDebugEnabled(true).setOAuthConsumerKey(CONSUMER_KEY)
 							    .setOAuthConsumerSecret(CONSUMER_SECRET)
@@ -26,23 +22,9 @@ public class TwitterAuthentication {
 		TwitterFactory tf = new TwitterFactory(cb.build());
 		Twitter twitter = tf.getInstance();
 		
-		System.out.println("oi");
+		System.err.println("=== [TWITTER] CONNECTED\n");
 		
-		try {
-			Query query = new Query("#api");
-		    QueryResult result = twitter.search(query);
-		    List<Status> tweets = result.getTweets();
-	        for (Status tweet : tweets) {
-	            System.out.println("@" + tweet.getUser().getScreenName() + " - " + tweet.getText());
-	        }
-	        
-	        System.exit(0);
-		} catch (TwitterException te) {
-			te.printStackTrace();
-            System.out.println("Failed to search tweets: " + te.getMessage());
-            System.exit(-1);
-		}
-		
+		return twitter;
 	}
 
 }

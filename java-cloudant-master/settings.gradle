@@ -1,0 +1,2 @@
+include ':cloudant-http', ':cloudant-client'
+rootProject.name = 'java-cloudant'
